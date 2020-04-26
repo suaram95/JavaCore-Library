@@ -1,12 +1,13 @@
 import model.Author;
 import model.Book;
-import storage.DataStorage;
+import storage.DataStorageCollection;
 
 import java.util.Scanner;
 
 public class LibraryMain implements Commands {
     private static Scanner scanner = new Scanner(System.in);
-    private static DataStorage dataStorage = new DataStorage();
+//    private static DataStorage dataStorage = new DataStorage();
+    private static DataStorageCollection dataStorage=new DataStorageCollection();
 
     public static void main(String[] args) {
         boolean isRun = true;
@@ -28,7 +29,7 @@ public class LibraryMain implements Commands {
                     deleteBook();
                     break;
                 case PRINT_ALL:
-                    dataStorage.print();
+                    dataStorage.printBook();
                     break;
                 default:
                     System.err.println("You entered Wrong Command!!");
@@ -71,7 +72,7 @@ public class LibraryMain implements Commands {
         book.setPrice(Double.parseDouble(bookData[3]));
         book.setCount(Integer.parseInt(bookData[4]));
         dataStorage.add(book);
-        dataStorage.print();
+        dataStorage.printBook();
     }
 
     private static void searchBook() {
@@ -81,11 +82,11 @@ public class LibraryMain implements Commands {
     }
 
     private static void deleteBook() {
-        dataStorage.print();
+        dataStorage.printBook();
         System.out.println("Input Book ID to delete");
         String bookId = scanner.nextLine();
         dataStorage.deleteBookByBookId(bookId);
         System.out.println("Book with bookID <"+bookId+"> was deleted from storage");
-        dataStorage.print();
+        dataStorage.printBook();
     }
 }
